@@ -95,8 +95,9 @@ app.put('/users/username/:username', function(req, res){
             user.apellido = req.body.apellido;
             user.username = req.body.username;
             user.email = req.body.email;
-            /*user.telefono = req.body.telefono;*/
-            user.puesto = req.body.puesto;
+            user.telefono = req.body.telefono;
+            user.direccion = req.body.direccion;
+            user.type = req.body.type;
 
             user.save()
             .then(() => {

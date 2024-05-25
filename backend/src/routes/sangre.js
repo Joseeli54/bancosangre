@@ -4,9 +4,9 @@ const app = express();
 
 app.get("/sangres/", function (req, res){  
     Sangre.find().sort( {code:1 } )   
-    .then(product => {
+    .then(sangre => {
         console.log('GET /sangres')
-        return res.status(200).jsonp(product);
+        return res.status(200).jsonp(sangre);
     })
     .catch(err => {
         return res.send(500, err.message);
@@ -16,9 +16,9 @@ app.get("/sangres/", function (req, res){
 app.get("/sangres/:id", function (req, res){  
     let id = req.params.id;
     Sangre.find({_id: id}).sort( {code:1 } )   
-    .then(product => {
+    .then(sangre => {
         console.log('GET /sangres')
-        return res.status(200).jsonp(product);
+        return res.status(200).jsonp(sangre);
     })
     .catch(err => {
         return res.send(500, err.message);
@@ -27,16 +27,20 @@ app.get("/sangres/:id", function (req, res){
 
 app.post("/sangres/", function (req, res){
     let body = req.body; 
-    let {code, name, level, type, content, createBy} = body;
+    let {code, grupo, name, level, factor_rh, type, date_donor, date_due, id_user, content, createBy} = body;
     
     let sangre = new Sangre({
-        code,
-        name,
-        level,
-        type,
-        content,
-        createBy
-    });
+                            code, 
+                            grupo, 
+                            name, 
+                            level, 
+                            factor_rh, 
+                            type, 
+                            date_donor, 
+                            date_due, 
+                            id_user, 
+                            content, 
+                            createBy});
 
     sangre.save().then(sangres => {
         console.log(sangres)
@@ -58,16 +62,20 @@ app.post("/sangres/", function (req, res){
 app.put("/sangres/:id", function (req, res){
     let id = req.params.id;
     let body = req.body;
-    let {code,name,level,type,content,createBy} = body;
+    let {code, grupo, name, level, factor_rh, type, date_donor, date_due, id_user, content, createBy} = body;
 
     let arrayUpdate = { 
-                    code,
-                    name,
-                    level,
-                    type,
-                    content,
-                    createBy
-                };
+                    code, 
+                    grupo, 
+                    name, 
+                    level, 
+                    factor_rh, 
+                    type, 
+                    date_donor, 
+                    date_due, 
+                    id_user, 
+                    content, 
+                    createBy};
 
     Sangre.updateOne({_id: id}, { $set: arrayUpdate})
     .then(data => {

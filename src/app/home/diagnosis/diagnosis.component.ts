@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
+import { Diagnostico } from 'src/app/models/diagnostico';
 import { Sangre } from 'src/app/models/sangre';
 import { UserServices } from '../../services/userservices.services';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -7,15 +8,14 @@ import { AlertService } from '../../services/alert/alert.service';
 import { environment } from '../../../environments/environment';
 import { User } from 'src/app/models/user';
 
+
 @Component({
-  selector: 'app-sangre',
-  templateUrl: './sangre.component.html',
-  styleUrls: ['./sangre.component.css']
+  selector: 'app-diagnosis',
+  templateUrl: './diagnosis.component.html',
+  styleUrls: ['./diagnosis.component.css']
 })
-
-export class SangreComponent {
-
-  @Input() content_sangres : Array<Sangre> = [];
+export class DiagnosisComponent {
+  @Input() content_diagnostico : Array<Diagnostico> = [];
   
   @ViewChild('dt') dt? : Table;
   
@@ -25,7 +25,8 @@ export class SangreComponent {
   public show_filters = true;
 
   //Objeto para guardar la información del sangreo seleccionado
-  public sangre : Sangre = {};
+  public diagnostico : Diagnostico = {};
+  public sangres : Array<Sangre> = [];
   
   //Objetos que serán utilizado para llamar el modal
   public modalReference : any;
@@ -34,35 +35,14 @@ export class SangreComponent {
   public usuarios : Array<User> = [];
 
   public table_cols = [
-    { field: 'code', header: 'Código' },
     { field: 'name', header: 'Nombre' },
-    { field: 'level', header: 'Nivel de Sangre' },
-    { field: 'grupo', header: 'Grupo Sanguineo' },
-    { field: 'factor_rh', header: 'Factor RH' },
+    { field: 'description', header: 'Observación' },
+    { field: 'id_sangre', header: 'Sangre Asociada' },
+    { field: 'id_user', header: 'Donante' },
     { field: 'createBy', header: 'Creado Por' },
     { field: 'actions', header: 'Acciones' },
   ];
 
-  public categories = [
-    { code: "1", title: 'A' },
-    { code: "2", title: 'AB' },
-    { code: "3", title: 'B' },
-    { code: "4", title: 'O' },
-  ];
-
-  public factores = [
-    { code: "1", title: 'Positivo' },
-    { code: "2", title: 'Negativo' },
-  ];
-
-  public tipo_donante = [
-    { code: "1", title: 'Donantes voluntarios no remunerados' },
-    { code: "2", title: 'Donantes a familiares o allegados' },
-    { code: "3", title: 'Donantes voluntarios remunerados' },
-    { code: "4", title: 'Donantes por aféresis' },
-  ]
-
-  private apiUrl : string = environment.apiUrl;
   public action = "";
 
   constructor(public userService: UserServices,
@@ -73,18 +53,19 @@ export class SangreComponent {
 
   ngOnInit(): void {
     this._selected_columns = this.table_cols;
-    this.getSangre();
+    this.getDiagnosticos();
     this.getUsers();
+    this.getSangres();
   }
 
-  public getSangre(){
+  public getDiagnosticos(){
     localStorage.setItem('spinner', '1');
 
     this.userService
-      .getUrl('sangres')
+      .getUrl('diagnosticos')
       .then(response => {
-        this.content_sangres = response;
-        console.log(this.content_sangres)
+        this.content_diagnostico = response;
+        console.log(this.content_diagnostico)
         localStorage.setItem('spinner', '0');
       })
       .catch(error => {
@@ -93,16 +74,48 @@ export class SangreComponent {
       });
   }
 
-  public clearData(){
-    this.sangre = new Sangre();
+  public getSangres(){
+    localStorage.setItem('spinner', '1');
+
+    this.userService
+      .getUrl('sangres')
+      .then(response => {
+        this.sangres = response;
+        console.log(this.sangres)
+        localStorage.setItem('spinner', '0');
+      })
+      .catch(error => {
+        console.log(error.error)
+        this.alertService.errorOcurred(error.statusText);
+      });
   }
 
-  public deleteSangre(id : any){
+  public getUsers(){
+    this.userService.getUrl('users')
+    .then(data => {
+
+      this.usuarios = [];
+      for (let index = 0; index < data.length; index++) {
+        if(data[index].role == "USER"){
+          this.usuarios.push(data[index]);
+        }
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+  public clearData(){
+    this.diagnostico = new Sangre();
+  }
+
+  public deleteDiagnostico(id : any){
     this.userService
-    .deleteUrl('sangres/{id}', [id])
+    .deleteUrl('diagnosticos/{id}', [id])
     .then(response => {
       console.log(response);
-      this.getSangre();
+      this.getDiagnosticos();
       this.modalReference.close();
     })
     .catch(error => {
@@ -110,45 +123,25 @@ export class SangreComponent {
     })
   }
 
-  openIA(content: any){
-    this.modalReference = this.modalService.open(content, { size: 'lg', centered: true});
-
-    this.modalReference.result.then((result: any) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason: any) => {
-      this.clearData();
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });    
-  }
-
   open(content: any, data : any) {
 
     if(data != null){
-      this.sangre._id = data._id;
-      this.sangre.code = data.code;
-      this.sangre.name = data.name;
-      this.sangre.content = data.content;
-      this.sangre.level = data.level.replace("mm", "");
-      this.sangre.type = data.type;
-      this.sangre.createBy = data.createBy;
-      this.sangre.grupo = data.grupo;
-      this.sangre.factor_rh = data.factor_rh;
-      this.sangre.date_donor = data.date_donor;
-      this.sangre.date_due = data.date_due;
-      this.sangre.id_user = data.id_user;
-      this.titleModal = "Editar Sangre";
+      this.diagnostico._id = data._id;
+      this.diagnostico.name = data.name;
+      this.diagnostico.description = data.content;
+      this.diagnostico.id_sangre = data.id_sangre;
+      this.diagnostico.id_user = data.id_user;
+      this.diagnostico.createBy = data.createBy;
+      this.titleModal = "Editar Diagnostico";
 
       this.action = "U";
     }else{
-      this.sangre.code = this.content_sangres.length + 1;
-      this.sangre.name = "Sangre #" + this.sangre.code;
-      this.sangre.content = "";
-      this.sangre.level = "75";
-      this.sangre.type = "1";
-      this.sangre.grupo = "1";
-      this.sangre.factor_rh = "1";
-      this.sangre.createBy = localStorage.getItem('username')!;
-      this.titleModal = "Agregar Sangre";
+      this.diagnostico.name = "Diagnostico #" + (this.content_diagnostico.length + 1);
+      this.diagnostico.description = "";
+      this.diagnostico.id_sangre = "1";
+      this.diagnostico.id_user = "1";
+      this.diagnostico.createBy = localStorage.getItem('username')!;
+      this.titleModal = "Agregar Diagnostico";
       this.action = "C";
     }
 
@@ -172,54 +165,32 @@ export class SangreComponent {
     }
   }
 
-  public getUsers(){
-    this.userService.getUrl('users')
-    .then(data => {
-
-      this.usuarios = [];
-      for (let index = 0; index < data.length; index++) {
-        if(data[index].role == "USER"){
-          this.usuarios.push(data[index]);
-        }
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
-
   public createOrUpdateSangre(){
-    console.log(this.sangre);
+    console.log(this.diagnostico);
 
-    let sangres = {
-      'code': this.sangre.code,
-      'name': this.sangre.name,
-      'content': this.sangre.content,
-      'level': this.sangre.level! + "mm",
-      'type': this.sangre.type,
-      'grupo': this.sangre.grupo,
-      'factor_rh': this.sangre.factor_rh,
-      'date_donor': this.sangre.date_donor,
-      'date_due': this.sangre.date_due,
-      'id_user': this.sangre.id_user,
-      'createBy': this.sangre.createBy }
+    let diagnosticos = {
+      'name': this.diagnostico.name,
+      'description': this.diagnostico.description,
+      'id_sangre': this.diagnostico.id_sangre,
+      'id_user': this.diagnostico.id_user,
+      'createBy': this.diagnostico.createBy }
 
     localStorage.setItem('spinner', '1');
     if(this.action == "C"){
       this.userService
-        .postUrl('sangres', sangres)
+        .postUrl('diagnosticos', diagnosticos)
         .then(response => {
           console.log(response)
-          this.getSangre();
+          this.getDiagnosticos();
           this.modalReference.close();
         })
     }else{
-      let id : any = this.sangre._id;
+      let id : any = this.diagnostico._id;
       this.userService
-        .putUrl('sangres/{id}', sangres, [id])
+        .putUrl('diagnosticos/{id}', diagnosticos, [id])
         .then(response => {
           console.log(response);
-          this.getSangre();
+          this.getDiagnosticos();
           this.modalReference.close();
         })
         .catch(error => {
@@ -228,24 +199,12 @@ export class SangreComponent {
     }
   }
 
-  public categoryName(code : any){
+  public userName(_id : any){
     let name = "No Aplicado";
 
-    for (let index = 0; index < this.categories.length; index++) {
-      if(this.categories[index].code == code){
-        name = this.categories[index].title;
-      }
-    }
-
-    return name;
-  }
-
-  public factorRHTitle(code : any){
-    let name = "No Aplicado";
-
-    for (let index = 0; index < this.factores.length; index++) {
-      if(this.factores[index].code == code){
-        name = this.factores[index].title;
+    for (let index = 0; index < this.usuarios.length; index++) {
+      if(this.usuarios[index]._id == _id){
+        name = this.usuarios[index].name + " " + this.usuarios[index].apellido;
       }
     }
 
@@ -254,7 +213,7 @@ export class SangreComponent {
 
   delete(content: any, data : any){
     if(data != null){
-      this.sangre._id = data._id;
+      this.diagnostico._id = data._id;
     }
 
     this.modalReference = this.modalService.open(content, { centered: true});

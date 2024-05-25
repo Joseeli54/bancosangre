@@ -1,0 +1,172 @@
+::ng-deep table {
+    font-size: 0.8rem;
+}
+
+.preview {
+    max-width: 200px;
+    vertical-align: middle;
+}
+
+.perfil-img{
+    border-radius: 75px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.files-input {
+    font-size: medium!important;
+    font-weight: 200!important;
+}
+
+#uploads {
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+}
+
+#image {
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+}
+
+.mat-toolbar-single-row {
+    height: auto !important;
+    background: transparent;
+    padding: 0;
+}
+
+.mat-toolbar-single-row button {
+    width: 100px;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.form-element {
+    width: 100%;
+    padding: 5px;
+}
+
+.currency-name {
+    margin-left: 30px;
+}
+
+::ng-deep .cdk-global-overlay-wrapper, ::ng-deep .cdk-overlay-container {
+    z-index: 99999 !important;
+}
+
+.example-right-align {
+    text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+}
+
+.example-button-row {
+    display: table-cell;
+    max-width: 600px;
+}
+
+::ng-deep .mdc-button {
+    padding: 20px 20px!important;
+    border-radius: 0.5rem!important;
+}
+
+.responsive-filter{
+    margin-left: 1rem!important;
+    margin-top: 0rem!important;
+    margin-right: 0rem!important;
+    margin-bottom: 0.2rem;
+ }
+ 
+ .panel-filter-left{
+    width: 70%;
+    text-align: left;
+ }
+ 
+ .panel-filter-right{
+    width: 30%;
+    text-align: right;
+ }
+
+ .width-search{
+    width: 20rem;
+}
+ 
+ @media (max-width: 1300px){
+    .responsive-filter{
+       margin-top: 1rem!important;
+       margin-left: 0rem!important;
+       margin-right: 1rem!important;
+    }
+
+    /* Force table to not be like tables anymore */
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    .table th{
+        font-size: 5vw;
+    }
+
+    .table td{
+        font-size: 5vw;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        font-size: calc(0.8em + 0.6vw);
+    }
+
+    tr {
+        margin: 0 0 1rem 0;
+        font-size: calc(0.8em + 0.6vw);
+    }
+
+    td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        font-size: calc(0.8em + 0.6vw);
+    }
+
+    td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 0;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-size: calc(0.8em + 0.6vw);
+    }
+ }
+
+ @media (max-width: 768px){
+ }
