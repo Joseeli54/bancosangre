@@ -2,17 +2,32 @@ const mongoose = require('mongoose');
 
 let Schema = mongoose.Schema;
 
-let productSchema = new Schema({
+let sangreSchema = new Schema({
     code: {
         type: Number,
     },
-    name:{
+    name: {
         type: String,
+    },
+    grupo:{
+        type: String,
+    },
+    factor_rh:{
+        type: String,
+    },
+    type:{
+        type: String,
+    },
+    date_donor:{
+        type: Date,
+    },
+    date_due:{
+        type: Date,
     },
     level:{
         type: String,
     },
-    type:{
+    id_user:{
         type: String,
     },
     content: {
@@ -23,4 +38,4 @@ let productSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Product', productSchema)
+module.exports = mongoose.model('Sangre', sangreSchema)

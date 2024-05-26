@@ -21,15 +21,14 @@ export class RegisterComponent {
   password: string = '';
   confirmPassword: string = '';
   role: string = '';
-  puesto: string = '';
+  type: string = '';
   avatar: string = '';
-  estado: string = '';
-
+  direccion: string = '';
+  telefono: string = '';
   delete_token: string = "";
   public_id: string = "";
 
   urlPreview: any = '';
-  public estados : any = [{'name' : 'Caracas'}, {'name' : 'Monagas'}, {'name' : 'Tachira'}]
   public file : any = [];
   
   passwordError: boolean = false;
@@ -41,6 +40,7 @@ export class RegisterComponent {
 
   ngOnInit() {
     this.role = "USER";
+    this.type = "Paciente";
   }
 
   EqualsPassword(){
@@ -77,8 +77,9 @@ export class RegisterComponent {
         "role" :  this.role,
         "avatar" :  '',
         "avatar_public_id" :  '',
-        "puesto" :  this.puesto,
-        "estado" : this.estado
+        "telefono" :  this.telefono,
+        "type" :  this.type,
+        "direccion" : this.direccion
     };
 
     this.userService

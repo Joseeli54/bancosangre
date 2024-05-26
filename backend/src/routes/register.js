@@ -25,8 +25,8 @@ app.post('/register', function (req, res) {
     let body = req.body;
 
     let { name, apellido, username, email,
-          password, role, puesto, avatar, 
-          avatar_public_id, estado } = body;
+          password, role, direccion, avatar, 
+          avatar_public_id, type, telefono } = body;
 
     email = email.toLowerCase();
     username = username.toLowerCase();
@@ -89,8 +89,9 @@ app.post('/register', function (req, res) {
       role,
       avatar,
       avatar_public_id,
-      puesto,
-      estado
+      type,
+      direccion,
+      telefono
     });
 
     let output;

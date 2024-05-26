@@ -2,7 +2,7 @@
     <div class="card col-12" id="tabla-import"> 
         <p-table #dt 
                 [columns]="selected_columns"
-                [value]="content_sangres"
+                [value]="content_diagnostico"
                 [paginator]="true" 
                 [rows]="5"
                 [rowsPerPageOptions]="[5,10,15,20, { showAll: 'All' }]"
@@ -13,14 +13,14 @@
                 [autoLayout]="true" 
                 [responsive]="true" 
                 selectionMode="multiple"
-                exportFilename="sangres" 
+                exportFilename="diagnosticos" 
                 [reorderableColumns]="true" 
                 [lazy]="lazy">
 
                 <ng-template pTemplate="caption">
                     <div class="d-flex justify-content-between">
                     <div class="panel-filter-left">
-                        <button class="btn-success btn me-3" (click)="open(modalSangre, null)">
+                        <button class="btn-success btn me-3" (click)="open(modalDiagnostico, null)">
                             <i class="fa fa-plus"></i>
                         </button>
                         <span class="p-input-icon-left ms-auto me-3 width-search py-md-0 py-2">
@@ -65,37 +65,33 @@
                     </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-sangre let-columns="columns">
+                <ng-template pTemplate="body" let-diagnostico let-columns="columns">
                     <tr>
                         <td *ngFor="let col of columns">
                              <!-- <a *ngIf="col.field.includes('status')" class="text-decoration-none text-dark">
-                                <span>{{ statusProductName(sangre[col.field]) }}</span>
+                                <span>{{ statusProductName(diagnostico[col.field]) }}</span>
                              </a>-->
-                             <a *ngIf="col.field.includes('grupo')" class="text-decoration-none text-dark">
-                                <span>{{ categoryName(sangre[col.field]) }}</span>
+                             <a *ngIf="col.field.includes('id_user')" class="text-decoration-none text-dark">
+                                <span>{{ userName(diagnostico[col.field]) }}</span>
                              </a>
 
-                             <a *ngIf="col.field.includes('factor_rh')" class="text-decoration-none text-dark">
-                                <span>{{ factorRHTitle(sangre[col.field]) }}</span>
-                             </a>
-                             <!-- <a *ngIf="col.field.includes('currency')" class="text-decoration-none text-dark">
-                                <span>{{ currencyProductName(sangre[col.field]) }}</span>
+                             <!-- <a *ngIf="col.field.includes('factor_rh')" class="text-decoration-none text-dark">
+                                <span>{{ factorRHTitle(diagnostico[col.field]) }}</span>
                              </a> -->
-                             <a *ngIf="!col.field.includes('grupo') && !col.field.includes('factor_rh')" class="text-decoration-none text-dark">
-                                {{ sangre[col.field] }}
+                             <!-- <a *ngIf="col.field.includes('currency')" class="text-decoration-none text-dark">
+                                <span>{{ currencyProductName(diagnostico[col.field]) }}</span>
+                             </a> -->
+                             <a *ngIf="!col.field.includes('id_user')" class="text-decoration-none text-dark">
+                                {{ diagnostico[col.field] }}
                              </a>
                             <div *ngIf="col.field == 'actions'" class="text-center" style="white-space: nowrap;">
-                                <button class="btn btn-danger me-2 rounded-circle" 
-                                        title="Usar herramienta de Diagnosticos" (click)="openIA(modalGenerate)">
-                                    <i class="fa fa-thermometer-full"></i>
-                                </button>
-                                <button title="Ver Detalles..." class="btn btn-success me-2 rounded-circle" (click)="open(modalView, sangre)">
+                                <button title="Ver Detalles..." class="btn btn-success me-2 rounded-circle" (click)="open(modalView, diagnostico)">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                                <button class="btn btn-warning me-2 rounded-circle" title="Editar" (click)="open(modalSangre, sangre)">
+                                <button class="btn btn-warning me-2 rounded-circle" title="Editar" (click)="open(modalDiagnostico, diagnostico)">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button class="btn btn-danger me-2 rounded-circle" title="Eliminar" (click)="delete(modalDelete, sangre)">
+                                <button class="btn btn-danger me-2 rounded-circle" title="Eliminar" (click)="delete(modalDelete, diagnostico)">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -111,34 +107,17 @@
     </div>
 </div>
 
-<!-- Crear sangre / Inicio -->
+<!-- Crear diagnostico / Inicio -->
 <ng-template #modalDelete let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h6>¿Estas seguro que deseas eliminar este tipo de sangre? </h6>
+        <h6>¿Estas seguro que deseas eliminar este diagnostico? </h6>
         <button type="button" (click)="d('Cerrar')" class="btn-close close" data-bs-dismiss="modal" aria-label="Close" style="font-size: .785rem;"></button>
     </div>
     <div class="modal-body">
         <span>Su información será eliminadas permanentemente.</span>
         <div class="row">
             <div class="col-12 mt-4 mb-2 text-end">
-                <button class="btn btn-danger mx-1" (click)="deleteSangre(sangre._id)">Eliminar</button>
-                <button class="btn btn-secondary mx-1" (click)="d('Cerrar')">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</ng-template>
-
-<!-- Crear sangre / Inicio -->
-<ng-template #modalGenerate let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h6>¿Deseas utilizar la herramienta IA, para generar un posible diagnostico de este tipo de sangre? </h6>
-        <button type="button" (click)="d('Cerrar')" class="btn-close close" data-bs-dismiss="modal" aria-label="Close" style="font-size: .785rem;"></button>
-    </div>
-    <div class="modal-body">
-        <span>Igualmente podrás editar la información en el módulo de diagnostico</span>
-        <div class="row">
-            <div class="col-12 mt-4 mb-2 text-end">
-                <button class="btn btn-danger mx-1">Generar</button>
+                <button class="btn btn-danger mx-1" (click)="deleteDiagnostico(diagnostico._id)">Eliminar</button>
                 <button class="btn btn-secondary mx-1" (click)="d('Cerrar')">Cancelar</button>
             </div>
         </div>
@@ -148,17 +127,15 @@
 <!-- Crear sangre / Inicio -->
 <ng-template #modalView let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Sangre #{{ sangre.code }}</h4>
+        <h4 class="modal-title">Diagnostico del Usuario {{ diagnostico.id_user }}</h4>
         <button type="button" (click)="d('Cerrar')" class="btn-close close" data-bs-dismiss="modal" aria-label="Close" style="font-size: .785rem;"></button>
     </div>
     <div class="modal-body">
         <div class="container">
             <div class="row">
                 <div class="col-md-9 col-12">
-                    <h6> {{ sangre.name }} </h6>
-                    <h6><b>Tipo:</b> {{ sangre.type }}</h6>
-                    <h6><b>Nivel de Sangre:</b> {{ sangre.level }}</h6>
-                    <h6>Publicado por <b>{{ sangre.createBy }}</b></h6>
+                    <h6> {{ diagnostico.name }} </h6>
+                    <h6>Publicado por <b>{{ diagnostico.createBy }}</b></h6>
                 </div>
             </div>
             <div class="row">
@@ -171,10 +148,10 @@
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="p-2">
-                                <p *ngIf="sangre.content">
-                                    {{ sangre.content }}
+                                <p *ngIf="diagnostico.description">
+                                    {{ diagnostico.description }}
                                 </p>
-                                <p *ngIf="!sangre.content">
+                                <p *ngIf="!diagnostico.description">
                                     Sin descripción.
                                 </p>
                             </div>
@@ -186,8 +163,8 @@
     </div>
 </ng-template>
 
-<!-- Crear sangre / Inicio -->
-<ng-template #modalSangre let-c="close" let-d="dismiss">
+<!-- Crear diagnostico / Inicio -->
+<ng-template #modalDiagnostico let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title">{{ titleModal }}</h4>
         <button type="button" (click)="d('Cerrar')" class="btn-close close" data-bs-dismiss="modal" aria-label="Close" style="font-size: .785rem;"></button>
@@ -199,16 +176,8 @@
                     <div class="row my-1">
                         <div class="col-md-6 col-12">
                             <mat-form-field class="mat-form-field" appearance="outline" color="primary">
-                                <mat-label>Código <span style="color: red">*</span></mat-label>
-                                <input matInput type="number" [(ngModel)]="sangre.code" id="codigo" name="codigo">
-                                <mat-icon matPrefix fontIcon="code"></mat-icon>
-                            </mat-form-field>
-                        </div>
-
-                        <div class="col-md-6 col-12">
-                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
                                 <mat-label>Nombre <span style="color: red">*</span></mat-label>
-                                <input matInput [(ngModel)]="sangre.name" id="name" name="name">
+                                <input matInput [(ngModel)]="diagnostico.name" id="name" name="name">
                                 <mat-icon matPrefix fontIcon="title"></mat-icon>
                             </mat-form-field>
                         </div>
@@ -216,83 +185,21 @@
                     <div class="row my-1">
                         <div class="col-md-6 col-12">
                             <mat-form-field class="mat-form-field" appearance="outline" color="primary">
-                                <mat-label>Nivel de la Sangre <span style="color: red">*</span></mat-label>
-                                <input type="number" matInput [(ngModel)]="sangre.level" id="level" name="level" class="example-right-align">
-                                <mat-icon matPrefix fontIcon="bubble_chart"></mat-icon>
-                                <span matTextSuffix> mm</span>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
-                                <mat-label>Grupo Sanguíneo <span style="color: red">*</span></mat-label>
-                                <mat-select [(ngModel)]="sangre.grupo" id="grupo" name="grupo">
-                                    <mat-option *ngFor="let category of categories; let indice=index" [value]="category.code">
-                                        {{ category.title }}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-icon matPrefix fontIcon="category"></mat-icon>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-md-6 col-12">
-                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
-                                <mat-label>Tipo de Donante <span style="color: red">*</span></mat-label>
-                                <mat-select [(ngModel)]="sangre.type" id="type" name="type">
-                                    <mat-option *ngFor="let tipo of tipo_donante; let indice=index" [value]="tipo.code">
-                                        {{ tipo.title }}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-icon matPrefix fontIcon="local_hospital"></mat-icon>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
-                                <mat-label>Factor RH <span style="color: red">*</span></mat-label>
-                                <mat-select [(ngModel)]="sangre.factor_rh" id="type" name="type">
-                                    <mat-option *ngFor="let factor of factores; let indice=index" [value]="factor.code">
-                                        {{ factor.title }}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-icon matPrefix fontIcon="add_circle"></mat-icon>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-md-6 col-12">
-                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
-                                <mat-label>Fecha de donación <span style="color: red">*</span></mat-label>
-                                <input matInput 
-                                       [matDatepicker]="picker1" 
-                                       [(ngModel)]="sangre.date_donor" 
-                                       id="date_donor" 
-                                       name="date_donor">
-                                <mat-hint>MM/DD/YYYY</mat-hint>
-                                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-                                <mat-datepicker #picker1></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
-                                <mat-label>Fecha de vencimiento <span style="color: red">*</span></mat-label>
-                                <input matInput 
-                                       [matDatepicker]="picker2" 
-                                       [(ngModel)]="sangre.date_due" 
-                                       id="date_due" 
-                                       name="date_due">
-                                <mat-hint>MM/DD/YYYY</mat-hint>
-                                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-                                <mat-datepicker #picker2></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-md-6 col-12">
-                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
                                 <mat-label>Donante <span style="color: red">*</span></mat-label>
-                                <mat-select [(ngModel)]="sangre.id_user" id="type" name="type">
+                                <mat-select [(ngModel)]="diagnostico.id_user" id="type" name="type">
                                     <mat-option *ngFor="let usuario of usuarios; let indice=index" [value]="usuario._id">
                                         {{ usuario.name }} {{ usuario.apellido }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-icon matPrefix fontIcon="account_circle"></mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
+                                <mat-label>Nombre de la Sangre <span style="color: red">*</span></mat-label>
+                                <mat-select [(ngModel)]="diagnostico.id_sangre" id="type" name="type">
+                                    <mat-option *ngFor="let sangre of sangres; let indice=index" [value]="sangre._id">
+                                        {{ sangre.code }} - {{ sangre.name }}
                                     </mat-option>
                                 </mat-select>
                                 <mat-icon matPrefix fontIcon="account_circle"></mat-icon>
@@ -302,7 +209,7 @@
                     <div class="row my-2">
                         <mat-form-field class="mat-form-field" appearance="outline" color="primary">
                             <mat-label>Descripción</mat-label>
-                            <textarea matInput [(ngModel)]="sangre.content" id="content" name="content"></textarea>
+                            <textarea matInput [(ngModel)]="diagnostico.description" id="content" name="content"></textarea>
                             <mat-icon matPrefix fontIcon="description"></mat-icon>
                         </mat-form-field>
                     </div>

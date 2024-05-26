@@ -16,6 +16,9 @@ import { SangreComponent } from './sangre/sangre.component';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon'
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DiagnosisComponent } from './diagnosis/diagnosis.component';
 
 
 @NgModule({
@@ -23,6 +26,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     OptionListComponent,
     ProfileComponent,
     SangreComponent,
+    DiagnosisComponent,
   ],
   imports: [
     CommonModule,
@@ -38,7 +42,9 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatSelectModule,
     MatButtonModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
 })
 export class HomeModule { 

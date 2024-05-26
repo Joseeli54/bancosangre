@@ -125,11 +125,12 @@ export class LoginComponent {
     window.history.back();
   }
 
-  public cancelarRecuerdame(){
-
-  } 
-
   public abrirModalRecuperarUsuario(){
 
   }
+
+  public cancelarRecuerdame(){
+
+  }
+
 }

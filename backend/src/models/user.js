@@ -28,10 +28,10 @@ let userSchema = new Schema({
         unique: true,
         required: [true, "El correo es necesario"],
     },
-    /*telefono: {
+    telefono: {
         type: String,
         required: [true, "El numero telefónico es necesario"],
-    },*/
+    },
     password: {
         type: String,
         required: [true, "Le contraseña es obligatoria"],
@@ -48,10 +48,10 @@ let userSchema = new Schema({
     avatar_public_id: {
         type: String,
     },
-    puesto: {
+    direccion: {
         type: String,
     },
-    estado: {
+    type: {
         type: String,
     }
 });
