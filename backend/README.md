@@ -1,4 +1,4 @@
-# banco de sangre (Backend)
+# Banco de sangre (Backend)
 
 This project was generated with Node JS version 16.20.1
 
@@ -11,14 +11,16 @@ Run `npm install`
 Run `npm start`
 
 
-## como crear el dataset
+# IA 
+
+## Como crear el dataset
 
 Run `node --max-old-space-size=15360 datasetCentroid.js`
 
-## como entrenar el modelo
+## Como entrenar el modelo
 
 Run `node --max-old-space-size=15360 trainCentroid.js`
 
-##como predecir 
+## Como predecir 
 
 Run `node --max-old-space-size=15360 predict.js`
