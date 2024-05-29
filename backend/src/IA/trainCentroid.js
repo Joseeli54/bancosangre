@@ -17,8 +17,10 @@ const encodeFeatures = (data) => {
   ]);
   // Normalizar las características
   const xs = tf.tensor2d(features);
-  const normalizedXs = xs.sub(xs.min(0)).div(xs.max(0).sub(xs.min(0)));
-  return normalizedXs;
+  const min = xs.min(0);
+  const max = xs.max(0);
+  const normalizedXs = xs.sub(min).div(max.sub(min));
+  return { normalizedXs, min, max };
 };
 
 const encodeDiagnosis = (diagnosis) => {
@@ -26,13 +28,19 @@ const encodeDiagnosis = (diagnosis) => {
   return tf.oneHot(tf.tensor1d([index], 'int32'), diagnoses.length).reshape([diagnoses.length]);
 };
 
+// Función para decodificar el diagnóstico
+const decodeDiagnosis = (tensor) => {
+  const index = tensor.argMax(-1).dataSync()[0];
+  return diagnoses[index];
+};
+
 // Cargar y preprocesar un chunk
 const loadDataChunk = (filePath) => {
   const rawData = fs.readFileSync(filePath);
   const data = JSON.parse(rawData);
-  const xs = encodeFeatures(data);
+  const { normalizedXs, min, max } = encodeFeatures(data);
   const ys = tf.tensor2d(data.map(d => encodeDiagnosis(d.diagnosis).arraySync()));
-  return { xs, ys };
+  return { normalizedXs, ys, min, max };
 };
 
 // Definir el modelo
@@ -53,7 +61,10 @@ model.compile({
 
 // Entrenar el modelo por chunks
 const trainModelInChunks = async () => {
-  for (let epoch = 0; epoch < 3; epoch++) { // Cambiar el número de épocas según se requiera
+  let globalMin = null;
+  let globalMax = null;
+
+  for (let epoch = 0; epoch < 1; epoch++) { // Cambiar el número de épocas según se requiera
     console.log(`Epoch ${epoch + 1}/3`);
     let epochLoss = 0;
     let epochAcc = 0;
@@ -61,9 +72,18 @@ const trainModelInChunks = async () => {
 
     for (const file of dataFiles) {
       console.log(`Entrenando con ${file}...`);
-      const { xs, ys } = loadDataChunk(`datasetCentroid/${file}`);
+      const { normalizedXs, ys, min, max } = loadDataChunk(`datasetCentroid/${file}`);
 
-      const history = await model.fit(xs, ys, {
+      // Actualizar los valores globales de min y max para la normalización
+      if (!globalMin || !globalMax) {
+        globalMin = min;
+        globalMax = max;
+      } else {
+        globalMin = tf.minimum(globalMin, min);
+        globalMax = tf.maximum(globalMax, max);
+      }
+
+      const history = await model.fit(normalizedXs, ys, {
         epochs: 1,
         verbose: 0,
         callbacks: {
@@ -75,7 +95,7 @@ const trainModelInChunks = async () => {
         }
       });
 
-      xs.dispose();
+      normalizedXs.dispose();
       ys.dispose();
     }
 
@@ -83,14 +103,26 @@ const trainModelInChunks = async () => {
     console.log(`Epoch ${epoch + 1}: loss = ${(epochLoss / batchCount).toFixed(4)}, accuracy = ${(epochAcc / batchCount).toFixed(4)}`);
   }
 
-   // Guardar el modelo manualmente en formato JSON
-   const modelJSON = model.toJSON();
-   fs.writeFileSync('model/model.json', JSON.stringify(modelJSON));
-   // Guardar los pesos del modelo en un archivo separado
-   const weights = model.getWeights();
-   const weightData = weights.map(w => w.dataSync());
-   fs.writeFileSync('model/weights.bin', Buffer.from(Float32Array.from(weightData.flat()).buffer));
-   console.log('Modelo y pesos guardados en formato JSON y BIN.');
+  // Guardar el modelo manualmente en formato JSON
+  const modelJSON = model.toJSON();
+  fs.writeFileSync('model/model.json', JSON.stringify(modelJSON));
+
+  // Obtener los pesos del modelo como un array de Promesas
+  const weightPromises = model.getWeights().map(w => w.array());
+
+  // Esperar a que todas las Promesas se resuelvan
+  const weightData = await Promise.all(weightPromises);
+
+  // Escribir los pesos en un archivo JSON
+  fs.writeFileSync('model/weights.json', JSON.stringify(weightData, null, 2));
+
+  // Guardar globalMin y globalMax en archivos JSON
+  const globalMinArray = await globalMin.array();
+  const globalMaxArray = await globalMax.array();
+  fs.writeFileSync('model/globalMin.json', JSON.stringify(globalMinArray));
+  fs.writeFileSync('model/globalMax.json', JSON.stringify(globalMaxArray));
+
+  console.log('Pesos del modelo y valores globales de min y max guardados en formato JSON.');
 };
 
 // Ejecutar el entrenamiento
