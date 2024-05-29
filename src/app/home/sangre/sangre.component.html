@@ -86,7 +86,7 @@
                              </a>
                             <div *ngIf="col.field == 'actions'" class="text-center" style="white-space: nowrap;">
                                 <button class="btn btn-danger me-2 rounded-circle" 
-                                        title="Usar herramienta de Diagnosticos" (click)="openIA(modalGenerate)">
+                                        title="Usar herramienta de Diagnosticos" (click)="openIA(modalGenerate, sangre)">
                                     <i class="fa fa-thermometer-full"></i>
                                 </button>
                                 <button title="Ver Detalles..." class="btn btn-success me-2 rounded-circle" (click)="open(modalView, sangre)">
@@ -138,7 +138,7 @@
         <span>Igualmente podrás editar la información en el módulo de diagnostico</span>
         <div class="row">
             <div class="col-12 mt-4 mb-2 text-end">
-                <button class="btn btn-danger mx-1">Generar</button>
+                <button class="btn btn-danger mx-1" (click)="generarDiagnostico(sangre)">Generar</button>
                 <button class="btn btn-secondary mx-1" (click)="d('Cerrar')">Cancelar</button>
             </div>
         </div>
@@ -158,6 +158,14 @@
                     <h6> {{ sangre.name }} </h6>
                     <h6><b>Tipo:</b> {{ sangre.type }}</h6>
                     <h6><b>Nivel de Sangre:</b> {{ sangre.level }}</h6>
+                    <h6><b>Grupo Sanguíneo:</b> {{ categoryName(sangre.grupo) }}</h6>
+                    <h6><b>Factor RH:</b> {{ factorRHTitle(sangre.factor_rh) }}</h6>
+                    <h6><b>Genero:</b> {{ sangre.genero }}</h6>
+                    <h6><b>Glóbulos Rojos:</b> {{ sangre.globulos_rojos }} m/l</h6>
+                    <h6><b>Hemoglobina:</b> {{ sangre.hemoglobina }} g/l</h6>
+                    <h6><b>Hematocrito:</b> {{ sangre.hematocrito }} %</h6>
+                    <h6><b>Glóbulos Blancos:</b> {{ sangre.globulos_blancos }} m/l</h6>
+                    <h6><b>Plaquetas:</b> {{ sangre.plaquetas }} m/l</h6>
                     <h6>Publicado por <b>{{ sangre.createBy }}</b></h6>
                 </div>
             </div>
@@ -255,6 +263,60 @@
                                     </mat-option>
                                 </mat-select>
                                 <mat-icon matPrefix fontIcon="add_circle"></mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
+                                <mat-label>Genero<span style="color: red">*</span></mat-label>
+                                <mat-select [(ngModel)]="sangre.genero" id="genero" name="genero">
+                                    <mat-option value="Hombre">
+                                        Hombre
+                                    </mat-option>
+                                    <mat-option value="Mujer">
+                                        Mujer
+                                    </mat-option>
+                                </mat-select>
+                                <mat-icon matPrefix fontIcon="add_circle"></mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
+                                <mat-label>Glóbulos rojos <span style="color: red">*</span></mat-label>
+                                <input type="number" matInput [(ngModel)]="sangre.globulos_rojos" id="level" name="level" class="example-right-align">
+                                <mat-icon matPrefix fontIcon="bubble_chart"></mat-icon>
+                                <span matTextSuffix> m/l</span>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
+                                <mat-label>Hemoglobina <span style="color: red">*</span></mat-label>
+                                <input type="number" matInput [(ngModel)]="sangre.hemoglobina" id="level" name="level" class="example-right-align">
+                                <mat-icon matPrefix fontIcon="bubble_chart"></mat-icon>
+                                <span matTextSuffix> g/l</span>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
+                                <mat-label>Hematocrito <span style="color: red">*</span></mat-label>
+                                <input type="number" matInput [(ngModel)]="sangre.hematocrito" id="level" name="level" class="example-right-align">
+                                <mat-icon matPrefix fontIcon="bubble_chart"></mat-icon>
+                                <span matTextSuffix> %</span>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
+                                <mat-label>Glóbulos blancos <span style="color: red">*</span></mat-label>
+                                <input type="number" matInput [(ngModel)]="sangre.globulos_blancos" id="level" name="level" class="example-right-align">
+                                <mat-icon matPrefix fontIcon="bubble_chart"></mat-icon>
+                                <span matTextSuffix> m/l</span>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
+                                <mat-label>Plaquetas <span style="color: red">*</span></mat-label>
+                                <input type="number" matInput [(ngModel)]="sangre.plaquetas" id="level" name="level" class="example-right-align">
+                                <mat-icon matPrefix fontIcon="bubble_chart"></mat-icon>
+                                <span matTextSuffix> m/l</span>
                             </mat-form-field>
                         </div>
                     </div>

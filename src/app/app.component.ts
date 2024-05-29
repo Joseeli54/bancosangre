@@ -7,7 +7,7 @@ import {SwUpdate} from '@angular/service-worker';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Smartgents';
+  title = 'Banco de sangre';
   public constructor(
     private primengConfig: PrimeNGConfig, private cdRef: ChangeDetectorRef, private updates: SwUpdate) {
    }
