@@ -15,6 +15,24 @@ let sangreSchema = new Schema({
     factor_rh:{
         type: String,
     },
+    genero:{
+        type: String,
+    },
+    globulos_rojos:{
+        type: Number,
+    },
+    hemoglobina:{
+        type: Number,
+    },
+    hematocrito:{
+        type: Number,
+    },
+    globulos_blancos:{
+        type: Number,
+    },
+    plaquetas:{
+        type: Number,
+    },
     type:{
         type: String,
     },

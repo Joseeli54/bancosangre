@@ -27,7 +27,7 @@ app.get("/sangres/:id", function (req, res){
 
 app.post("/sangres/", function (req, res){
     let body = req.body; 
-    let {code, grupo, name, level, factor_rh, type, date_donor, date_due, id_user, content, createBy} = body;
+    let {code, grupo, name, level, factor_rh, genero, globulos_rojos, hemoglobina, hematocrito, globulos_blancos, plaquetas, type, date_donor, date_due, id_user, content, createBy} = body;
     
     let sangre = new Sangre({
                             code, 
@@ -35,6 +35,12 @@ app.post("/sangres/", function (req, res){
                             name, 
                             level, 
                             factor_rh, 
+                            genero,
+                            globulos_rojos,
+                            hemoglobina,
+                            hematocrito,
+                            globulos_blancos,
+                            plaquetas,
                             type, 
                             date_donor, 
                             date_due, 
@@ -62,7 +68,7 @@ app.post("/sangres/", function (req, res){
 app.put("/sangres/:id", function (req, res){
     let id = req.params.id;
     let body = req.body;
-    let {code, grupo, name, level, factor_rh, type, date_donor, date_due, id_user, content, createBy} = body;
+    let {code, grupo, name, level, factor_rh, genero, globulos_rojos, hemoglobina, hematocrito, globulos_blancos, plaquetas, type, date_donor, date_due, id_user, content, createBy} = body;
 
     let arrayUpdate = { 
                     code, 
@@ -70,6 +76,12 @@ app.put("/sangres/:id", function (req, res){
                     name, 
                     level, 
                     factor_rh, 
+                    genero,
+                    globulos_rojos,
+                    hemoglobina,
+                    hematocrito,
+                    globulos_blancos,
+                    plaquetas,
                     type, 
                     date_donor, 
                     date_due, 

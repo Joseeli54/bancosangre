@@ -110,7 +110,49 @@ export class SangreComponent {
     })
   }
 
-  openIA(content: any){
+  openIA(content: any, data: any){
+    if(data != null){
+      this.sangre._id = data._id;
+      this.sangre.code = data.code;
+      this.sangre.name = data.name;
+      this.sangre.content = data.content;
+      this.sangre.level = data.level.replace("mm", "");
+      this.sangre.type = data.type;
+      this.sangre.createBy = data.createBy;
+      this.sangre.grupo = data.grupo;
+      this.sangre.factor_rh = data.factor_rh;
+      this.sangre.genero = data.genero;
+      this.sangre.globulos_rojos = data.globulos_rojos;
+      this.sangre.hemoglobina = data.hemoglobina;
+      this.sangre.hematocrito = data.hematocrito;
+      this.sangre.globulos_blancos = data.globulos_blancos;
+      this.sangre.plaquetas = data.plaquetas;
+      this.sangre.date_donor = data.date_donor;
+      this.sangre.date_due = data.date_due;
+      this.sangre.id_user = data.id_user;
+      this.titleModal = "Editar Sangre";
+
+      this.action = "U";
+    }else{
+      this.sangre.code = this.content_sangres.length + 1;
+      this.sangre.name = "Sangre #" + this.sangre.code;
+      this.sangre.content = "";
+      this.sangre.level = "75";
+      this.sangre.type = "1";
+      this.sangre.grupo = "1";
+      this.sangre.factor_rh = "1";
+      this.sangre.genero = "Hombre";
+      this.sangre.globulos_rojos = "";
+      this.sangre.hemoglobina = "";
+      this.sangre.hematocrito = "";
+      this.sangre.globulos_blancos = "";
+      this.sangre.plaquetas = "";
+      this.sangre.createBy = localStorage.getItem('username')!;
+      this.titleModal = "Agregar Sangre";
+      this.action = "C";
+    }
+
+
     this.modalReference = this.modalService.open(content, { size: 'lg', centered: true});
 
     this.modalReference.result.then((result: any) => {
@@ -133,6 +175,12 @@ export class SangreComponent {
       this.sangre.createBy = data.createBy;
       this.sangre.grupo = data.grupo;
       this.sangre.factor_rh = data.factor_rh;
+      this.sangre.genero = data.genero;
+      this.sangre.globulos_rojos = data.globulos_rojos;
+      this.sangre.hemoglobina = data.hemoglobina;
+      this.sangre.hematocrito = data.hematocrito;
+      this.sangre.globulos_blancos = data.globulos_blancos;
+      this.sangre.plaquetas = data.plaquetas;
       this.sangre.date_donor = data.date_donor;
       this.sangre.date_due = data.date_due;
       this.sangre.id_user = data.id_user;
@@ -147,6 +195,12 @@ export class SangreComponent {
       this.sangre.type = "1";
       this.sangre.grupo = "1";
       this.sangre.factor_rh = "1";
+      this.sangre.genero = "Hombre";
+      this.sangre.globulos_rojos = "";
+      this.sangre.hemoglobina = "";
+      this.sangre.hematocrito = "";
+      this.sangre.globulos_blancos = "";
+      this.sangre.plaquetas = "";
       this.sangre.createBy = localStorage.getItem('username')!;
       this.titleModal = "Agregar Sangre";
       this.action = "C";
@@ -199,6 +253,12 @@ export class SangreComponent {
       'type': this.sangre.type,
       'grupo': this.sangre.grupo,
       'factor_rh': this.sangre.factor_rh,
+      'genero': this.sangre.genero,
+      'globulos_rojos': this.sangre.globulos_rojos,
+      'hemoglobina': this.sangre.hemoglobina,
+      'hematocrito': this.sangre.hematocrito,
+      'globulos_blancos': this.sangre.globulos_blancos,
+      'plaquetas': this.sangre.plaquetas,
       'date_donor': this.sangre.date_donor,
       'date_due': this.sangre.date_due,
       'id_user': this.sangre.id_user,
@@ -284,5 +344,24 @@ export class SangreComponent {
 
   clear(table: Table) {
     table.clear();
+  }
+
+  generarDiagnostico(sangre: any){
+    console.log(sangre);
+    this.userService
+        .postUrl('diagnosticoAutomatico', 
+        {
+          name: 'Diagnostico automatico', 
+          id_sangre: sangre._id,
+          id_user: sangre._id,
+          createBy: sangre.createBy,
+        }
+        )
+        .then(response => {
+          console.log(response)
+          this.getSangre();
+          this.modalReference.close();
+        })
+      
   }
 }
