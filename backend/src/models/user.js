@@ -53,6 +53,9 @@ let userSchema = new Schema({
     },
     type: {
         type: String,
+    },
+    dateBirth: {
+        type: String,
     }
 });
 

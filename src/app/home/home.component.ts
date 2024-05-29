@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   public spinner : string = '0';
   public username : any;
   public bLogger = false;
+  public avatar : any = "";
 
   public constructor(
     private primengConfig: PrimeNGConfig, private router: Router, private cdRef: ChangeDetectorRef) {
@@ -27,6 +28,7 @@ export class HomeComponent implements OnInit {
   
     var rol = localStorage.getItem('role');
     var email = localStorage.getItem('email');
+    this.avatar = localStorage.getItem('avatar');
     
     if (!this.isNullOrUndefined(rol) && !this.isNullOrUndefined(email)) {
         this.bLogger = true;

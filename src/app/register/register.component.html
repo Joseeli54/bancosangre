@@ -6,120 +6,136 @@
         <!--     <h1>Register</h1> -->
           
         <div class="container px-4 py-3">
-            <div class="row mb-3" title="Regresar" routerLink = "/login" role="button">
-              <a class="mr-3 col-md-1 col-12 text-start">
-                <li class="fa fa-sign-in fa-2x" style="color: #aa1111;"></li>
-              </a>
-              <h5 class="col-md-4 col-12 d-flex align-items-center mb-0" style="color: #aa1111;">Volver</h5>
-            </div>
+          <div class="row mb-3" title="Regresar" routerLink = "/login" role="button">
+            <a class="mr-3 col-md-1 col-12 text-start">
+              <li class="fa fa-sign-in fa-2x" style="color: #aa1111;"></li>
+            </a>
+            <h5 class="col-md-4 col-12 d-flex align-items-center mb-0" style="color: #aa1111;">Volver</h5>
+          </div>
 
-            <div class="row mt-3">
-              <div class="col">
-                <div class="form-group">
-                  <label for="name" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Nombre <strong style="color:red">*</strong></label>
-                  <input type="text" name="name" [(ngModel)]="name" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Nombre..." required="required"/>
-                </div>
-              </div>
-
-              <div class="col-md col-12">
-                <div class="form-group">
-                  <label for="apellido" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Apellido <strong style="color:red">*</strong></label>
-                  <input type="text" name="apellido" [(ngModel)]="apellido" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Nombre..." required="required"/>
-                </div>
+          <div class="row mt-3">
+            <div class="col">
+              <div class="form-group">
+                <label for="name" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Nombre <strong style="color:red">*</strong></label>
+                <input type="text" name="name" [(ngModel)]="name" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Nombre..." required="required"/>
               </div>
             </div>
 
-            <div class="row mt-3">
-              <div class="col-md col-12">
-                <div class="form-group">
-                  <label for="username" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Nombre de Usuario <strong style="color:red">*</strong></label>
-                  <input type="text" name="username" [(ngModel)]="username" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Nombre de usuario..." required="required"/>
-                </div>
+            <div class="col-md col-12">
+              <div class="form-group">
+                <label for="apellido" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Apellido <strong style="color:red">*</strong></label>
+                <input type="text" name="apellido" [(ngModel)]="apellido" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Nombre..." required="required"/>
               </div>
-              <div class="col-md col-12">
-                <div class="form-group">
-                  <label for="email" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Correo Electrónico  <strong style="color:red">*</strong></label>
-                  <input type="email" name="email" [(ngModel)]="email" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Ingrese su correo electrónico..." required="required"/>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md col-12">
+              <div class="form-group">
+                <label for="username" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Nombre de Usuario <strong style="color:red">*</strong></label>
+                <input type="text" name="username" [(ngModel)]="username" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Nombre de usuario..." required="required"/>
+              </div>
+            </div>
+            <div class="col-md col-12">
+              <div class="form-group">
+                <label for="email" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Correo Electrónico  <strong style="color:red">*</strong></label>
+                <input type="email" name="email" [(ngModel)]="email" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Ingrese su correo electrónico..." required="required"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-6 col-12">
+              <div class="form-group">
+                <label for="dateBirthday" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Fecha de Nacimiento <strong style="color:red">*</strong></label>
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-3 col-12 px-1">
+                      <input min="1" max="31" type="number" class="form-control" style="font-size: 0.875rem;" [(ngModel)]="dia" placeholder="día">
+                    </div>
+                    <div class="col-md-6 col-12 px-1">
+                      <select name="mes" id="mes" class="form-select" style="font-size: 0.875rem;" [(ngModel)]="mes">
+                        <option value="-1" selected disabled>Seleccione un mes</option>
+                        <option *ngFor="let mes of meses; let indice=index" [value]="mes.code"> {{ mes.mes }} </option>
+                      </select>
+                    </div>
+                    <div class="col-md-3 col-12 px-1">
+                      <input min="1900" max="2100" type="number" class="form-control" style="font-size: 0.875rem;" [(ngModel)]="ano" placeholder="año">
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div class="row mt-3">
-              <div class="col-md-6 col-12">
-                <div class="form-group">
-                  <label for="dateBirthday" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Fecha de Nacimiento <strong style="color:red">*</strong></label>
-                  <input type="date" name="dateBirthday" [(ngModel)]="dateBirthday" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Fecha de nacimiento..." required="required"/>
-                </div>
-              </div>
-              <div class="col-md-6 col-12">
-                <div class="form-group">
-                  <label for="direccion" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Dirección de Hogar <strong style="color:red">*</strong></label>
-                  <input type="text" name="direccion" [(ngModel)]="direccion" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Fecha de nacimiento..." required="required"/>
-                </div>
+            <div class="col-md-6 col-12">
+              <div class="form-group">
+                <label for="direccion" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Dirección de Hogar <strong style="color:red">*</strong></label>
+                <input type="text" name="direccion" [(ngModel)]="direccion" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Escriba una dirección..." required="required"/>
               </div>
             </div>
+          </div>
 
-            <div class="row mt-3">
-              <div class="col-md-6 col-12">
-                <div class="form-group">
-                  <label for="telefono" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Teléfono <strong style="color:red">*</strong></label>
-                  <input type="text" name="telefono" [(ngModel)]="telefono" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Teléfono..." required="required"/>
-                </div>
+          <div class="row mt-3">
+            <div class="col-md-6 col-12">
+              <div class="form-group">
+                <label for="telefono" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Teléfono <strong style="color:red">*</strong></label>
+                <input type="text" name="telefono" [(ngModel)]="telefono" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Teléfono..." required="required"/>
               </div>
             </div>
-
-            <div class="row mt-3">
-              <div class="col-md col-12">
-                <div class="form-group">
-                  <label for="password" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Contraseña  <strong style="color:red">*</strong></label>
-                  <input type="password" name="password" [(ngModel)]="password" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Contraseña..." required="required"/>
-                </div>
-              </div>
-
-              <div class="col-md col-12">
-                <div class="form-group">
-                  <label for="password" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Confirmar Contraseña <strong style="color:red">*</strong></label>
-                  <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Confirmar contraseña..." required="required"/>
-                </div>
-
-                <div>
-                  <span class="subtitulo-form ml-1" *ngIf="InequalsPassword()"> 
-                    <b><strong style="color:rgb(131, 131, 41)"><i class="fa fa-exclamation-triangle"></i> Ambos campos deben tener la misma contraseña.</strong></b>
-                  </span>
+            <div class="col-md-6 col-12">
+              <label for="telefono" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Foto de Perfil </label>
               
-                  <span class="subtitulo-form ml-1" *ngIf="EqualsPassword()"> 
-                    <b><strong style="color:green"><i class="fa fa-check"></i> Confirmación exitosa </strong></b>
-                  </span>
-                </div>
+              <div *ngIf="this.urlPreview !== ''" class="position-relative text-center">
+                <a class="fa fa-times bg-danger text-white position-absolute p-1 text-decoration-none" 
+                (click)="clickEliminarImagen()"></a>
+                <img [src]="urlPreview" width="150" height="auto" > 
+                <br>
+              </div>
+          
+              <input
+                accept="image/png,image/jpeg"
+                type="file"
+                (change)="capturarImagen($event)"
+                name="avatar"
+                id="avatar"
+                placeholder="Ingrese su foto de perfil*"
+                style="display: none;"
+              />
+              <br>
+              <button *ngIf="this.urlPreview == ''" class="btn btn-danger mx-auto" style="font-size: 0.875rem;" (click)="clickInsertarImagen()">Agregar una foto de Perfil</button>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md col-12">
+              <div class="form-group">
+                <label for="password" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Contraseña  <strong style="color:red">*</strong></label>
+                <input type="password" name="password" [(ngModel)]="password" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Contraseña..." required="required"/>
               </div>
             </div>
-            <div class="form-group mt-4 text-center">
-                <button type="submit" (click)="register()" class="btn btn-blue fw-bold br-1" id="register_button" [disabled] = "InequalsPassword()">
-                 <span class="fw-bold" style="font-size: 0.9rem;"> Registrar </span>
-                </button>
-            </div>
-          
 
-          <!-- <div>
-            <div *ngIf="this.urlPreview !== ''" class="position-relative text-center">
-              <a class="fa fa-times bg-danger text-white position-absolute p-1 text-decoration-none" 
-              (click)="clickEliminarImagen()"></a>
-              <img [src]="urlPreview" width="150" height="auto" > 
-              <br>
+            <div class="col-md col-12">
+              <div class="form-group">
+                <label for="password" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Confirmar Contraseña <strong style="color:red">*</strong></label>
+                <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Confirmar contraseña..." required="required"/>
+              </div>
             </div>
-        
-            <input
-              accept="image/png,image/jpeg"
-              type="file"
-              (change)="capturarImagen($event)"
-              name="avatar"
-              id="avatar"
-              placeholder="Ingrese su foto de perfil*"
-              style="display: none;"
-            />
-        
-            <button (click)="clickInsertarImagen()">Agregar una foto de Perfil</button>
-          </div> -->
+
+            
+            <div class="col-12">
+              <span class="subtitulo-form ml-1" *ngIf="InequalsPassword()"> 
+                <b><strong style="color:rgb(131, 131, 41)"><i class="fa fa-exclamation-triangle"></i> Ambos campos deben tener la misma contraseña.</strong></b>
+              </span>
+          
+              <span class="subtitulo-form ml-1" *ngIf="EqualsPassword()"> 
+                <b><strong style="color:green"><i class="fa fa-check"></i> Confirmación exitosa </strong></b>
+              </span>
+            </div>
+          </div>
+          <div class="form-group mt-4 text-center">
+              <button type="submit" (click)="register()" class="btn btn-blue fw-bold br-1" id="register_button" [disabled] = "InequalsPassword()">
+               <span class="fw-bold" style="font-size: 0.9rem;"> Registrar </span>
+              </button>
+          </div>
         </div>
         <!--   <select [(ngModel)]="role"
                   name="role">

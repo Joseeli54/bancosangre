@@ -79,6 +79,39 @@ app.get("/users/username/:username", function (req, res){
     });
 });
 
+app.put('/users/role/:username', function(req, res){
+
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+    res.header('Access-Control-Allow-Credentials', true); // If needed
+
+    data = { username: req.params.username };
+
+    User.findOne(data)
+    .then(user => {
+        if(user !== null) {
+            user.name   = req.body.role;
+
+            user.save()
+            .then(() => {
+                return res.status(200).jsonp(user);
+            })
+            .catch(err => {
+                return res.status(400).json({
+                    ok: false,
+                    err,
+                });
+            });
+        }else{
+            res.status(400).jsonp({message: "No se encontraron los datos del usuario"})
+        }
+    })
+    .catch(err => {
+        return res.send(500, err.message);
+    });
+});
+
 app.put('/users/username/:username', function(req, res){
 
     res.header('Access-Control-Allow-Origin', '*');
@@ -93,11 +126,11 @@ app.put('/users/username/:username', function(req, res){
         if(user !== null) {
             user.name   = req.body.name;
             user.apellido = req.body.apellido;
-            user.username = req.body.username;
+            //user.username = req.body.username;
             user.email = req.body.email;
             user.telefono = req.body.telefono;
-            user.direccion = req.body.direccion;
-            user.type = req.body.type;
+            //user.direccion = req.body.direccion;
+            //user.type = req.body.type;
 
             user.save()
             .then(() => {
@@ -144,6 +177,3 @@ app.delete("/users/:id", function (req, res){
 });
 
 module.exports = app;
-
-
-

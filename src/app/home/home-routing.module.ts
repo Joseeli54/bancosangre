@@ -5,6 +5,7 @@ import { OptionListComponent } from './option-list/option-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SangreComponent } from './sangre/sangre.component';
 import { DiagnosisComponent } from './diagnosis/diagnosis.component';
+import { StatisticComponent } from './statistic/statistic.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       { component: ProfileComponent, path: 'account' },
       { component: SangreComponent, path: 'sangre' },
       { component: DiagnosisComponent, path: 'diagnostico' },
+      { component: StatisticComponent, path: 'estadistica' },
     ]
   },
 ];

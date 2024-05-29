@@ -1,0 +1,93 @@
+<div class="container-fluid">
+
+    <div class="row p-3">
+        <div class="col-md-3 col-12">
+            <div class="card p-3 shadow-blocks">
+                <h5 class="text-center">TIPOS DE SANGRE</h5>
+                <h2 class="text-center">{{ getCantidadSangres()}}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-12">
+            <div class="card p-3 shadow-blocks">
+                <h5 class="text-center">DIAGNOSTICOS</h5>
+                <h2 class="text-center">{{ getCantidadDiagnosticos()}}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-12">
+            <div class="card p-3 shadow-blocks">
+                <h5 class="text-center">DONANTES</h5>
+                <h2 class="text-center">{{ getCantidadUsuarios()}}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="accordion col-md-6 col-12" id="accordionSangre">
+            <div class="accordion-item shadow-blocks">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <b>Donantes de Sangre por Grupo Sanguineo</b>
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionSangre">
+                <div class="accordion-body">
+                 <div class="card">
+                    <div class="card-body text-center chart-container p-3">
+                        <canvas id="myChart1" #myChart1></canvas>
+                    </div>
+                 </div>
+                 <div class="my-3">
+                    <a class="text-primary text-decoration-none" style="font-size: 1.5rem;" routerLink="/home/sangre">Ver más información <i class="fa fa-arrow-left mx-2"></i></a>
+                 </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="accordion col-md-6 col-12" id="accordionDiagnostico">
+            <div class="accordion-item shadow-blocks">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                  <b>Diagnostico por Tipo de Sangre</b>
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionDiagnostico">
+                <div class="accordion-body">
+                 <div class="card">
+                    <div class="card-body text-center chart-container p-3">
+                        <canvas id="myChart2" #myChart2></canvas>
+                    </div>
+                 </div>
+                 <div class="my-3">
+                    <a class="text-primary text-decoration-none" style="font-size: 1.5rem;" routerLink="/home/diagnostico">Ver más información <i class="fa fa-arrow-left mx-2"></i></a>
+                 </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="accordion col-12 mt-4" id="accordionDonantes">
+            <div class="accordion-item shadow-blocks">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                  <b>Donantes por Tipo de Sangre</b>
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionDonantes">
+                <div class="accordion-body">
+                 <div class="card">
+                    <div class="card-body text-center chart-container p-3">
+                        <canvas id="myChart3" #myChart3></canvas>
+                    </div>
+                 </div>
+                 <div class="my-3">
+                    <a class="text-primary text-decoration-none" style="font-size: 1.5rem;" routerLink="/home/sangre">Ver más información <i class="fa fa-arrow-left mx-2"></i></a>
+                 </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

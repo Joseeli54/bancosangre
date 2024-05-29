@@ -19,6 +19,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DiagnosisComponent } from './diagnosis/diagnosis.component';
+import { StatisticComponent } from './statistic/statistic.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { DiagnosisComponent } from './diagnosis/diagnosis.component';
     ProfileComponent,
     SangreComponent,
     DiagnosisComponent,
+    StatisticComponent,
   ],
   imports: [
     CommonModule,

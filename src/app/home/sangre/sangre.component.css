@@ -108,7 +108,7 @@ input.example-right-align::-webkit-inner-spin-button {
     width: 20rem;
 }
  
- @media (max-width: 1300px){
+ @media (max-width: 768px){
     .responsive-filter{
        margin-top: 1rem!important;
        margin-left: 0rem!important;

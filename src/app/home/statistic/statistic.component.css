@@ -2,9 +2,19 @@
     font-size: 0.8rem;
 }
 
+.chart-container{
+    min-height: 65vh;
+}
+
 .preview {
     max-width: 200px;
     vertical-align: middle;
+}
+
+.shadow-blocks{
+    -webkit-box-shadow: 10px 11px 21px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 11px 21px -4px rgba(0,0,0,0.75);
+    box-shadow: 10px 11px 21px -4px rgba(0,0,0,0.75);
 }
 
 .perfil-img{

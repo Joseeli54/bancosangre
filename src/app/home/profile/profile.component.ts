@@ -80,7 +80,12 @@ export class ProfileComponent {
       this.correo= data.email;
       this.telefono= data.telefono;
       this.cargo= data.puesto;
-      this.avatar= "";
+      this.avatar= data.avatar;
+
+      if(this.avatar == null || this.avatar == ""){
+        this.avatar = "/assets/img/perfil-user.jpg";
+      }
+
       this.avatar_public_id= "";
       this.usernameCurrent = data.username;
       this.username = data.username;
@@ -99,6 +104,46 @@ export class ProfileComponent {
         passwordNew: ['', Validators.required]
       });
   }
+
+  public changeUser(){
+
+    let data = {
+      "name": this.names,
+      "apellido": this.apellidos,
+      "email": this.correo,
+      "telefono": this.telefono
+    };
+
+    this.userService.putUrl('users/username/{username}', data, [this.username])
+    .then(response => {
+      console.log(response)
+      if(response._id !== undefined){
+
+          this.names = response.name;
+          this.apellidos = response.apellido;
+          this.correo = response.email;
+          this.telefono = response.telefono;
+          
+          this.modalReference.close();
+          this.getUser();
+
+          if(document.location.href.indexOf('myprofile') !== -1){
+              var URL = '/home/myprofile/'+localStorage.getItem('username');
+          }else{
+              var URL = '/home/profile/'+localStorage.getItem('username');
+          }
+
+          this.editingSuccessfully();
+          
+          this.Redirect.navigateByUrl(URL);
+      }
+    })
+    .catch(data =>{
+        this.errorOcurred(data.error);
+    });
+
+  }
+
 
   private messageSwal(title : any) {
     let config: SweetAlertOptions = {

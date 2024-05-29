@@ -48,7 +48,7 @@ export class DiagnosisComponent {
   constructor(public userService: UserServices,
               private modalService: NgbModal,
               private alertService: AlertService) { 
-    localStorage.setItem('view', '1');
+    localStorage.setItem('view', '3');
   }
 
   ngOnInit(): void {

@@ -5,17 +5,11 @@ const app = express();
 const path = require('path');
 const fs = require('fs-extra');
 const transporter = require('./../config/mailer');
+const multer = require('./../libs/multerUploads');
 
-// Configurando el Cors en el servidor.
-var cors = require('cors');
-app.use(cors({
-    origin:['http://localhost:4200',
-            'http://127.0.0.1:4200', 
-            'http://127.0.0.1:8080'],
-    credentials:true
-}));
-
-app.post('/register', function (req, res) {
+app.post('/register', multer.fields([
+                        { name: 'avatar', maxCount: 1 }    
+                    ]), function (req, res) {
 
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
@@ -23,10 +17,15 @@ app.post('/register', function (req, res) {
     res.header('Access-Control-Allow-Credentials', true); // If needed
 
     let body = req.body;
+    var avatar = "";
+
+    if(req.files.avatar !== undefined){
+        avatar = body.apiUrl +  "src/uploads/" + req.files.avatar[0].filename;
+    }
 
     let { name, apellido, username, email,
-          password, role, direccion, avatar, 
-          avatar_public_id, type, telefono } = body;
+        password, role, direccion, 
+        avatar_public_id, type, telefono, dateBirth } = body;
 
     email = email.toLowerCase();
     username = username.toLowerCase();
@@ -89,9 +88,10 @@ app.post('/register', function (req, res) {
       role,
       avatar,
       avatar_public_id,
-      type,
       direccion,
-      telefono
+      type,
+      telefono,
+      dateBirth
     });
 
     let output;

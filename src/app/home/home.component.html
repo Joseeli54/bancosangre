@@ -36,19 +36,19 @@
 					</li>
 
 					<div class="dropdown me-3">
-						<button class="btn dropdown-toggle" 
+						<button class="btn dropdown-toggle pt-0" 
 								type="button" 
 								style="border-radius: 25px;" 
 								id="dropdownMenu2" 
 								data-bs-toggle="dropdown" 
 								aria-expanded="false">
-						  <i class="fa fa-user"></i>
+						  <img [src]="avatar" width="38" height="38" style="border-radius: 50%;" alt="">
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-						  <li><button class="dropdown-item" routerLink="/home/account" type="button">Mi Perfil</button></li>
-						  <li><button class="dropdown-item" type="button">Mis Diagnosticos</button></li>
-						  <li><button class="dropdown-item" type="button">Mis Estadisticas</button></li>
-						  <li><button class="dropdown-item" type="button" (click)="logout()">Cerrar Sesión</button></li>
+							<li><button class="dropdown-item" routerLink="/home/account" type="button">Mi Perfil</button></li>
+							<li><button class="dropdown-item" type="button">Mis Diagnosticos</button></li>
+							<li><button class="dropdown-item" type="button">Mis Estadisticas</button></li>
+							<li><button class="dropdown-item" type="button" (click)="logout()">Cerrar Sesión</button></li>
 						</ul>
 					</div>
 				</ul>
@@ -79,7 +79,7 @@
         <div class="list-group list-group-flush" *ngIf="toggleShow">
           <a  [ngClass]="{'items-color-active': view == '0'}" routerLink="/home/option-list" id="item-home" (click)="hideToggle();" style="border-width: 0px;" class="list-group-item list-group-item-action py-2 text-center items-color" ><i class="fa fa-home size-icons"></i> <br> <span class="font-letters"> Inicio </span></a>
           <a  [ngClass]="{'items-color-active': view == '1'}" routerLink="/home/sangre" id="item-sangre" (click)="hideToggle();" style="border-width: 0px;" class="list-group-item list-group-item-action py-2 text-center items-color" ><i class="fa fa-tint size-icons"></i> <br> <span class="font-letters"> Sangre </span></a>
-          <a  [ngClass]="{'items-color-active': view == '2'}" id="item-partner" (click)="hideToggle();" style="border-width: 0px;" class="list-group-item list-group-item-action py-2 text-center items-color" ><i class="fa fa-bar-chart size-icons"></i> <br> <span class="font-letters"> Estadistica</span></a>
+          <a  [ngClass]="{'items-color-active': view == '2'}" routerLink="/home/estadistica" id="item-statistic" (click)="hideToggle();" style="border-width: 0px;" class="list-group-item list-group-item-action py-2 text-center items-color" ><i class="fa fa-bar-chart size-icons"></i> <br> <span class="font-letters"> Estadistica</span></a>
           <a  [ngClass]="{'items-color-active': view == '3'}" routerLink="/home/diagnostico"  id="item-diagnostico" (click)="hideToggle();" style="border-width: 0px;" class="list-group-item list-group-item-action py-2 text-center items-color" ><i class="fa fa-thermometer-full size-icons"></i> <br> <span class="font-letters"> Diagnostico </span></a>
           <a  [ngClass]="{'items-color-active': view == '4'}" routerLink="/home/account" id="item-account" (click)="hideToggle();" routerLink="/home/account" style="border-width: 0px;" class="list-group-item list-group-item-action py-2 text-center items-color" ><i class="pi pi-user size-icons"></i> <br> <span class="font-letters"> Cuenta </span></a>
           <!-- <a  [ngClass]="{'items-color-active': view == '5'}"  id="item-course-list" (click)="hideToggle();" class="list-group-item list-group-item-action py-3 text-center items-color" routerLink="/home/course-list"><i class="fas fa-book-open size-icons"></i> <br> <span class="font-letters"> Asignaturas </span></a> -->

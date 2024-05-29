@@ -20,12 +20,6 @@
 	              <input type="text" class="form-control input-lg" name="apellido" id="apellido" placeholder="Apellido" [(ngModel)]="apellidos">
 	            </div>
             </div>
-
-            <!-- <div class="form-group px-md-2 text-start">
-            	<label style="font-weight: bold;" for="usernameOld">Name de Usuario</label>
-              <input type="text" class="form-control input-lg" name="usernameOld" id="usernameOld" placeholder="Name de Usuario" [(ngModel)]="usernameOld">
-            </div> -->
-
             <div class="form-group px-md-2 text-start my-2">
             	<label style="font-weight: bold;" for="email">Correo Electronico</label>
               <input type="text" class="form-control input-lg" name="email" id="email" placeholder="Correo Electronico" [(ngModel)]="correo">
@@ -38,7 +32,7 @@
 
             <div class="row">
               <div class="col-md-12">
-                <button class="btn btn-primary" type="submit">Editar</button>
+                <button class="btn btn-primary" type="submit" (click)="changeUser()">Editar</button>
               </div>
             </div>
 
@@ -69,7 +63,7 @@
 							<div class="custom-control custom-switch">
 								<input type="checkbox" class="custom-control-input" id="adminSwitches" *ngIf="this.role == 'ADMIN'" checked>
 								<input type="checkbox" class="custom-control-input" id="adminSwitches" *ngIf="this.role == 'USER'">
-								<label class="custom-control-label" for="adminSwitches">Convert to Administrator User.</label>
+								<label class="custom-control-label" for="adminSwitches">Convertir usuario en Administrador.</label>
 							</div>
 				      </div>
 				    </div>
@@ -114,7 +108,7 @@
 				<div class="d-flex">
 					<div class="foto-perfil">
 						<a>
-							<img src="/assets/img/perfil-user.jpg" class="tamaño-imagen">
+							<img [src]="avatar" class="tamaño-imagen">
 						</a>
 					</div>		
 
