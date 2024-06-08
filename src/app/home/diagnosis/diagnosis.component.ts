@@ -128,7 +128,7 @@ export class DiagnosisComponent {
     if(data != null){
       this.diagnostico._id = data._id;
       this.diagnostico.name = data.name;
-      this.diagnostico.description = data.content;
+      this.diagnostico.description = data.description;
       this.diagnostico.id_sangre = data.id_sangre;
       this.diagnostico.id_user = data.id_user;
       this.diagnostico.createBy = data.createBy;
