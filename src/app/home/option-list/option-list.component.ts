@@ -93,6 +93,10 @@ export class OptionListComponent implements OnInit{
     this. hideGridLayout();
   }
 
+  public refrescar(){
+    location.reload();
+  }
+
   public setGrid(num : number) : void{
     this.ngrid = num;
   }

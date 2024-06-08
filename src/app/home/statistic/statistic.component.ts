@@ -94,7 +94,7 @@ export class StatisticComponent implements OnInit {
         this.getUsers();
       })
       .catch(error => {
-        console.log(error.error)
+        console.log(error)
         this.alertService.errorOcurred(error.statusText);
       });
   }

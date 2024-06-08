@@ -10,7 +10,7 @@
 			<div class="accordion-body">
 				<div class="row">
 					<div class="col-md-3 col-12 p-3">
-						<div role="button" class="size-fx-move fondo-comida rounded text-center centered-block position-relative" style="height: 25vh;" (click)="searchCategory('Comida')" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						<div role="button" routerLink="/home/diagnostico" class="size-fx-move fondo-comida rounded text-center centered-block position-relative" style="height: 25vh;" (click)="searchCategory('Comida')" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 							<span class="height-icons centered-block">
 								<i class="fa fa-thermometer-full fa-3x"></i>
 							</span>
@@ -18,15 +18,15 @@
 						</div>
 					</div>
 					<div class="col-md-3 col-12 p-3">
-						<div role="button" class="size-fx-move fondo-tecnologia rounded text-center centered-block position-relative" style="height: 25vh;" (click)="searchCategory('Tecnología')" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						<div role="button" routerLink="/home/estadistica" class="size-fx-move fondo-tecnologia rounded text-center centered-block position-relative" style="height: 25vh;" (click)="searchCategory('Tecnología')" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 							<span class="height-icons centered-block">
 								<i class="fa fa-bar-chart fa-3x"></i>
 							</span>
 							<span class="h5" style="position: absolute; bottom: 0px; left: 10px;color: white;">Estadistica</span>
 						</div>
 					</div>
-					<div class="col-md-3 col-12 p-3" routerLink="/home/sangre">
-						<div role="button" class="size-fx-move fondo-ropa rounded text-center centered-block position-relative" style="height: 25vh;" (click)="searchCategory('Ropa y Calzados')" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					<div class="col-md-3 col-12 p-3">
+						<div role="button" routerLink="/home/sangre" class="size-fx-move fondo-ropa rounded text-center centered-block position-relative" style="height: 25vh;" (click)="searchCategory('Ropa y Calzados')" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 							<span class="height-icons centered-block">
 								<i class="fa fa-tint fa-3x"></i>
 							</span>
@@ -34,7 +34,7 @@
 						</div>
 					</div>
 					<div class="col-md-3 col-12 p-3">
-						<div role="button" class="size-fx-move fondo-hogar rounded text-center centered-block position-relative" style="height: 25vh;" (click)="searchCategory('Hogar')" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						<div role="button" (click)="refrescar()" class="size-fx-move fondo-hogar rounded text-center centered-block position-relative" style="height: 25vh;" (click)="searchCategory('Hogar')" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 							<span class="height-icons centered-block">
 								<i class="fa fa-home fa-4x"></i>
 							</span>

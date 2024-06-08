@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit {
     if (!this.isNullOrUndefined(rol) && !this.isNullOrUndefined(email)) {
         this.bLogger = true;
         this.username = localStorage.getItem('username');
+
+        if(this.avatar == null || this.avatar == ""){
+          this.avatar = "/assets/img/perfil-user.jpg";
+        }
     }else{
       //comentado para que se pueda probar desde Netlify mientras se sube el backend a un server
       //this.router.navigate(['/login'], { replaceUrl: true });

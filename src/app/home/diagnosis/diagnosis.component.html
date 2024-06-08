@@ -75,13 +75,18 @@
                                 <span>{{ userName(diagnostico[col.field]) }}</span>
                              </a>
 
+                             <a *ngIf="col.field.includes('id_sangre')" class="text-decoration-none text-dark">
+                                <span>{{ sangreName(diagnostico[col.field]) }}</span>
+                             </a>
+
                              <!-- <a *ngIf="col.field.includes('factor_rh')" class="text-decoration-none text-dark">
                                 <span>{{ factorRHTitle(diagnostico[col.field]) }}</span>
                              </a> -->
                              <!-- <a *ngIf="col.field.includes('currency')" class="text-decoration-none text-dark">
                                 <span>{{ currencyProductName(diagnostico[col.field]) }}</span>
                              </a> -->
-                             <a *ngIf="!col.field.includes('id_user')" class="text-decoration-none text-dark">
+                             <a *ngIf="!col.field.includes('id_user') &&
+                                       !col.field.includes('id_sangre')" class="text-decoration-none text-dark">
                                 {{ diagnostico[col.field] }}
                              </a>
                             <div *ngIf="col.field == 'actions'" class="text-center" style="white-space: nowrap;">
@@ -127,7 +132,7 @@
 <!-- Crear sangre / Inicio -->
 <ng-template #modalView let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Diagnostico del Usuario {{ diagnostico.id_user }}</h4>
+        <h4 class="modal-title">Diagnostico del Usuario llamado "{{ userName(diagnostico.id_user) }}"</h4>
         <button type="button" (click)="d('Cerrar')" class="btn-close close" data-bs-dismiss="modal" aria-label="Close" style="font-size: .785rem;"></button>
     </div>
     <div class="modal-body">
@@ -135,6 +140,8 @@
             <div class="row">
                 <div class="col-md-9 col-12">
                     <h6> {{ diagnostico.name }} </h6>
+                    <h6> <b> Nombre de la Sangre: </b> {{ sangreName(diagnostico.id_sangre) }}  </h6>
+                    <h6> <b> Donante: </b> {{ userName(diagnostico.id_user) }}  </h6>
                     <h6>Publicado por <b>{{ diagnostico.createBy }}</b></h6>
                 </div>
             </div>

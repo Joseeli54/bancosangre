@@ -20,6 +20,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DiagnosisComponent } from './diagnosis/diagnosis.component';
 import { StatisticComponent } from './statistic/statistic.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { InfoComponent } from './info/info.component';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { StatisticComponent } from './statistic/statistic.component';
     SangreComponent,
     DiagnosisComponent,
     StatisticComponent,
+    ContactUsComponent,
+    InfoComponent,
   ],
   imports: [
     CommonModule,

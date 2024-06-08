@@ -6,6 +6,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { SangreComponent } from './sangre/sangre.component';
 import { DiagnosisComponent } from './diagnosis/diagnosis.component';
 import { StatisticComponent } from './statistic/statistic.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { InfoComponent } from './info/info.component';
+
 
 const routes: Routes = [
   {
@@ -17,6 +20,8 @@ const routes: Routes = [
       { component: SangreComponent, path: 'sangre' },
       { component: DiagnosisComponent, path: 'diagnostico' },
       { component: StatisticComponent, path: 'estadistica' },
+      { component: ContactUsComponent, path: 'contacto' },
+      { component: InfoComponent, path: 'info' },
     ]
   },
 ];

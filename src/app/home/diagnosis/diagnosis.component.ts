@@ -106,6 +106,18 @@ export class DiagnosisComponent {
     })
   }
 
+  public sangreName(id : any){
+    let name = "No Aplicado";
+
+    for (let index = 0; index < this.sangres.length; index++) {
+      if(this.sangres[index]._id == id){
+        name = this.sangres[index].name!;
+      }
+    }
+
+    return name;
+  }
+
   public clearData(){
     this.diagnostico = new Sangre();
   }

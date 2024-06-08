@@ -24,7 +24,7 @@
     </div>
 
     <div class="row p-3">
-        <div class="accordion col-md-6 col-12" id="accordionSangre">
+        <div class="accordion col-md-6 col-12" id="accordionSangre" [ngClass] = " { 'd-none' : getCantidadSangres() == 0 }">
             <div class="accordion-item shadow-blocks">
               <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <div class="accordion col-md-6 col-12" id="accordionDiagnostico">
+        <div class="accordion col-md-6 col-12" id="accordionDiagnostico" [ngClass] = " { 'd-none' : getCantidadDiagnosticos() == 0 }">
             <div class="accordion-item shadow-blocks">
               <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <div class="accordion col-12 mt-4" id="accordionDonantes">
+        <div class="accordion col-12 mt-4" id="accordionDonantes" [ngClass] = " { 'd-none' : getCantidadUsuarios() == 0 }">
             <div class="accordion-item shadow-blocks">
               <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">

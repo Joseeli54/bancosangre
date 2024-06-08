@@ -29,10 +29,10 @@
 						<a class="nav-link text-item" routerLink="/" title="Home" (click)="collapseHide()">Inicio<span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item text-center">
-						<a class="nav-link text-item" href="#about-us" title="Información de Nosotros" (click)="collapseHide()">Información Relevante</a>
+						<a class="nav-link text-item" routerLink="/home/info" title="Información de Nosotros" (click)="collapseHide()">Información Relevante</a>
 					</li>
 					<li class="nav-item text-center">
-						<a class="nav-link text-item" href="#contact-us" title="Como Encontrarnos" (click)="collapseHide()" >Contactanos</a>
+						<a class="nav-link text-item" routerLink="/home/contacto" title="Como Encontrarnos" (click)="collapseHide()" >Contactanos</a>
 					</li>
 
 					<div class="dropdown me-3">
@@ -42,7 +42,7 @@
 								id="dropdownMenu2" 
 								data-bs-toggle="dropdown" 
 								aria-expanded="false">
-						  <img [src]="avatar" width="38" height="38" style="border-radius: 50%;" alt="">
+						  <img [src]="avatar" width="38" height="38" style="border-radius: 50%;object-fit: cover;" alt="">
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
 							<li><button class="dropdown-item" routerLink="/home/account" type="button">Mi Perfil</button></li>

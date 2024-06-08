@@ -353,7 +353,7 @@ export class SangreComponent {
         {
           name: 'Diagnostico automatico', 
           id_sangre: sangre._id,
-          id_user: sangre._id,
+          id_user: sangre.id_user,
           createBy: sangre.createBy,
         }
         )
